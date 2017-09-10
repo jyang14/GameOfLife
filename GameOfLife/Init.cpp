@@ -5,7 +5,7 @@ int main()
 {
     Gui::Builder builder;
 
-    builder.setDimensions(150, 100, 1);
+    builder.setDimensions(150, 1, 100);
     
     builder.setLiveRule(2, 3);
     builder.setBirthRule(3, 3);
@@ -16,7 +16,7 @@ int main()
     // builder.setInitalState("xx\txx\txx"); //oscilator 5766
     // builder.setInitalState("\tox\nox\txxx\tox\n\tox"); // blinker 5545
 
-   builder.setInitalState("xx\toxx\tox");
+   builder.setInitalState("xx\noxx\nox");
 
     builder.setDrawDelay(100);
 

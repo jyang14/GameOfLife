@@ -15,7 +15,7 @@ Camera::Camera() :
     // camera and greater than 40 units distant clipped away.
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(50.0, 4.0 / 3.0, 1, 150);
+    gluPerspective(50.0, 4.0 / 3.0, 1, 200);
 
     look();
 }
