@@ -6,14 +6,21 @@
 #include <iostream>
 
 
-Gui::Gui(int width, int height, int depth, const char * state, int mod, int liveMin, int liveMax, int birthMin, int birthMax, int drawDelay, const char * title) : window(sf::RenderWindow(sf::VideoMode().getDesktopMode(), title, sf::Style::Fullscreen, sf::ContextSettings(24, 8, 2, 3, 3)))
+Gui::Gui(int width, int height, int depth, 
+    const char * state, int mod, 
+    int liveMin, int liveMax, 
+    int birthMin, int birthMax,
+    int drawDelay, const char * title, const char * texturePath) 
+    : window(sf::RenderWindow(sf::VideoMode().getDesktopMode(), title,
+        sf::Style::Fullscreen, 
+        sf::ContextSettings(24, 8, 2, 3, 3)))
 {
     window.setVerticalSyncEnabled(true);
     GLenum err = glewInit();
     if (GLEW_OK == err)
     {
         sf::Texture texture;
-        if (!texture.loadFromFile("C:/Users/jinch/Desktop/Untitled.png"))
+        if (!texture.loadFromFile(texturePath))
             return;
 
         // Attempt to generate a mipmap for our cube texture
@@ -75,6 +82,7 @@ Gui::Builder::Builder()
 
     state = "r";
     title = "Conway's Game of Life";
+    texturePath = "C:/Users/jinch/Desktop/Untitled.png";
 
     liveMin = 2;
     liveMax = 3;
@@ -90,7 +98,7 @@ Gui::Builder::Builder()
 
 void Gui::Builder::initGui()
 {
-    Gui gui(width, height, depth, state, mod, liveMin, liveMax, birthMin, birthMax, drawDelay, title);
+    Gui gui(width, height, depth, state, mod, liveMin, liveMax, birthMin, birthMax, drawDelay, title, texturePath);
 }
 
 void Gui::Builder::setDimensions(int newWidth, int newHeight, int newDepth)
@@ -130,4 +138,9 @@ void Gui::Builder::setDrawDelay(int newDrawDelay)
 void Gui::Builder::setModularBoard(int newMod)
 {
     mod = newMod;
+}
+
+void Gui::Builder::setTexture(const char * newTexturePath)
+{
+    texturePath = newTexturePath;
 }

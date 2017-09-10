@@ -1,5 +1,6 @@
 #pragma once
-namespace sf {
+namespace sf
+{
     class RenderWindow;
 }
 class Gui
@@ -15,6 +16,7 @@ public:
 
         const char* state;
         const char* title;
+        const char* texturePath;
 
         int liveMin;
         int liveMax;
@@ -26,7 +28,7 @@ public:
 
         int drawDelay;
 
-    public: 
+    public:
 
         Builder();
 
@@ -39,12 +41,16 @@ public:
         void setBirthRule(int newBirthMin, int newBirthMax);
         void setDrawDelay(int newDrawDelay);
         void setModularBoard(int newMod);
+        void setTexture(const char *  newTexturePath);
 
     };
 
 
-    Gui(int width, int height, int depth, const char* state, int mod, int liveMin,
-    int liveMax, int birthMin, int birthMax, int drawDelay, const char* title);
+    Gui(int width, int height, int depth,
+        const char* state, int mod,
+        int liveMin, int liveMax,
+        int birthMin, int birthMax,
+        int drawDelay, const char* title, const char* texture);
     ~Gui();
 };
 
