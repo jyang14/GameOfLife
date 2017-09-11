@@ -9,10 +9,8 @@ class Cube
 
     uint32_t triangles;
 
-    void calculateNormals();
-
     GLuint vertexVBOID;
-    GLuint normalsVBOID;
+    const GLuint normalsVBOID;
     const GLuint textureVBOID;
 
 public:
@@ -22,7 +20,7 @@ public:
 
     void render();
 
-    Cube(int x, int y, int z, GLuint texturesVBOID);
+    Cube(int x, int y, int z, GLuint normalsVBOID, GLuint texturesVBOID);
     Cube(Cube &other);
 
     Cube & operator=(Cube &other);
