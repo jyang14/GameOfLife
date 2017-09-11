@@ -120,8 +120,6 @@ void CubeManager::calculateNormals()
     }
 }
 
-
-
 void CubeManager::render(int row, int column, int layer)
 {
     if (!cubes[layer * height * width + row * width + column])
