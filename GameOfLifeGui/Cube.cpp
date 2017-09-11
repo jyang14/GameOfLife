@@ -3,56 +3,6 @@
 #include <cstring>
 
 
- const float Cube::textures[] = {
-    1.0f, 1.0f, // Good
-    1.0f, 0.0f,
-    0.0f, 0.0f,
-
-    0.0f, 0.0f, // Good
-    1.0f, 1.0f,
-    1.0f, 0.0f,
-
-    1.0f, 0.0f,
-    0.0f, 1.0f,
-    1.0f, 1.0f,
-
-    0.0f, 0.0f, // Good
-    0.0f, 1.0f,
-    1.0f, 1.0f,
-
-    1.0f, 1.0f, // Good
-    0.0f, 0.0f,
-    0.0f, 1.0f,
-
-    1.0f, 0.0f,
-    0.0f, 0.0f,
-    0.0f, 1.0f,
-
-    1.0f, 1.0f, // Good
-    1.0f, 0.0f,
-    0.0f, 0.0f,
-
-    1.0f, 0.0f,
-    0.0f, 1.0f,
-    1.0f, 1.0f,
-
-    0.0f, 1.0f,
-    1.0f, 0.0f,
-    0.0f, 0.0f,
-
-    0.0f, 0.0f, // Good
-    0.0f, 1.0f,
-    1.0f, 1.0f,
-
-    0.0f, 0.0f, // Good 
-    1.0f, 1.0f,
-    1.0f, 0.0f,
-
-    0.0f, 1.0f, // Good
-    1.0f, 1.0f,
-    0.0f, 0.0f
-};
-
 void Cube::calculateNormals()
 {
     float sum;
@@ -120,7 +70,7 @@ void Cube::render()
 
 }
 
-Cube::Cube(int x, int y, int z)
+Cube::Cube(int x, int y, int z, GLuint textureVBOID)
     : vertices{
     0.0f, 0.0f, 0.0f,
     0.0f, 0.0f, 1.0f,
@@ -159,7 +109,7 @@ Cube::Cube(int x, int y, int z)
     0.0f, 1.0f, 1.0f,
     1.0f, 0.0f, 1.0f
 },
-triangles(12)
+triangles(12), textureVBOID(textureVBOID)
 {
 
     for (unsigned int i = 0; i < triangles * 3; i++)
@@ -182,14 +132,11 @@ triangles(12)
     glBindBuffer(GL_ARRAY_BUFFER, normalsVBOID);
     glBufferData(GL_ARRAY_BUFFER, sizeof(float)* triangles * 9, normals, GL_STATIC_DRAW);
 
-    textureVBOID = 0;
-    glGenBuffers(1, &textureVBOID);
-    glBindBuffer(GL_ARRAY_BUFFER, textureVBOID);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float)* triangles * 6, textures, GL_STATIC_DRAW);
+
 }
 
 Cube::Cube(Cube & other)
-    :triangles(12)
+    :triangles(12), textureVBOID(other.textureVBOID)
 {
     std::memcpy(vertices, other.vertices, sizeof(float)* triangles * 9);
 
@@ -205,10 +152,6 @@ Cube::Cube(Cube & other)
     glBindBuffer(GL_ARRAY_BUFFER, normalsVBOID);
     glBufferData(GL_ARRAY_BUFFER, sizeof(float)* triangles * 9, normals, GL_STATIC_DRAW);
 
-    textureVBOID = 0;
-    glGenBuffers(1, &textureVBOID);
-    glBindBuffer(GL_ARRAY_BUFFER, textureVBOID);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float)* triangles * 6, textures, GL_STATIC_DRAW);
 }
 
 Cube & Cube::operator=(Cube & other)
@@ -225,8 +168,6 @@ Cube & Cube::operator=(Cube & other)
         glDeleteBuffers(1, &normalsVBOID);
     if (vertexVBOID)
         glDeleteBuffers(1, &vertexVBOID);
-    if(textures)
-        glDeleteBuffers(1, &textureVBOID);
 
     vertexVBOID = 0;
     glGenBuffers(1, &vertexVBOID);
@@ -238,11 +179,6 @@ Cube & Cube::operator=(Cube & other)
     glBindBuffer(GL_ARRAY_BUFFER, normalsVBOID);
     glBufferData(GL_ARRAY_BUFFER, sizeof(float)* triangles * 9, normals, GL_STATIC_DRAW);
 
-    textureVBOID = 0;
-    glGenBuffers(1, &textureVBOID);
-    glBindBuffer(GL_ARRAY_BUFFER, textureVBOID);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float)* triangles * 6, textures, GL_STATIC_DRAW);
-
     return *this;
 }
 
@@ -251,5 +187,4 @@ Cube::~Cube()
 {
     glDeleteBuffers(1, &normalsVBOID);
     glDeleteBuffers(1, &vertexVBOID);
-    glDeleteBuffers(1, &textureVBOID);
 }

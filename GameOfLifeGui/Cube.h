@@ -6,7 +6,6 @@ class Cube
 {
     float vertices[12 * 3 * 3];
     float normals[12 * 3 * 3];
-    static const float textures[12 * 3 * 2];
 
     uint32_t triangles;
 
@@ -14,7 +13,7 @@ class Cube
 
     GLuint vertexVBOID;
     GLuint normalsVBOID;
-    GLuint textureVBOID;
+    const GLuint textureVBOID;
 
 public:
     float* getVertices();
@@ -23,7 +22,7 @@ public:
 
     void render();
 
-    Cube(int x, int y, int z);
+    Cube(int x, int y, int z, GLuint texturesVBOID);
     Cube(Cube &other);
 
     Cube & operator=(Cube &other);

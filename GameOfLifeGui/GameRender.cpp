@@ -1,10 +1,5 @@
 #include "GameRender.h"
 
-Cube * GameRender::makeCube(int row, int column, int layer)
-{
-    return new Cube(column - width / 2, -row, layer - depth / 2);
-}
-
 void GameRender::drawBoundingBox()
 {
 
@@ -62,12 +57,8 @@ void GameRender::render()
         for (int column = 0; column < width; column++)
             for (int layer = 0; layer < depth; layer++)
                 if (boards[gen % 2].isOccupied(row, column, layer))
-                {
-                    if (!blocks[layer * height * width + row * width + column])
-                        blocks[layer * height * width + row * width + column] = makeCube(row, column, layer);
-                    blocks[layer * height * width + row * width + column]->render();
+                    manager.render(row, column, layer);
 
-                }
 
     glDisable(GL_LIGHTING);
     glDisable(GL_LIGHT0);
@@ -76,19 +67,10 @@ void GameRender::render()
 }
 
 GameRender::GameRender(int width, int height, int depth, int mod, int liveMin, int liveMax, int birthMin, int birthMax)
-    :Game(width, height, depth, mod, liveMin, liveMax, birthMin, birthMax)
+    :Game(width, height, depth, mod, liveMin, liveMax, birthMin, birthMax), manager(width, height, depth)
 {
-    blocks = new Cube*[height * width * depth];
-
-    std::memset(blocks, 0, height * width * depth * sizeof(Cube*));
 }
 
 GameRender::~GameRender()
 {
-    for (int i = 0; i < depth * width * height; i++)
-    {
-        if (blocks[i])
-            delete blocks[i];
-    }
-    delete[] blocks;
 }

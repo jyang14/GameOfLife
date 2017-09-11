@@ -1,14 +1,11 @@
 #pragma once
-#include <vector>
-
 #include "Game.h"
 #include "Cube.h"
+#include "CubeManager.h"
 
 class GameRender : public Game
 {
-    Cube** blocks;
-
-    Cube * makeCube(int row, int column, int layer);
+    CubeManager manager;
 
     void drawBoundingBox();
 
