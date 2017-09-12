@@ -5,7 +5,7 @@ int main()
 {
     Gui::Builder builder;
 
-    builder.setDimensions(40, 40, 40);
+    builder.setDimensions(20, 20, 20);
     
     builder.setLiveRule(3, 7);
     builder.setBirthRule(6, 6);
@@ -17,7 +17,7 @@ int main()
     //builder.setInitalState("\tox\nox\txxx\tox\n\tox"); // blinker 5545
 
     //builder.setInitalState("xx\noxx\nox");
-    builder.setTexture("C:/Users/jinch/Desktop/Untitled.png");
+    builder.setTexture("C:/Users/jinch/Desktop/wpi.png");
 
     builder.setDrawDelay(100);
 

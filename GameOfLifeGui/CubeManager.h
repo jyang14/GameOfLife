@@ -8,8 +8,6 @@ class CubeManager
     static const float textures[12 * 3 * 2];
     static const float vertices[12 * 3 * 3];
 
-    float normals[12 * 3 * 3];
-
     GLuint textureVBOID;
     GLuint normalsVBOID;
 
@@ -21,7 +19,7 @@ class CubeManager
 
 public:
 
-    void calculateNormals();
+    void calculateNormals(float * normals);
 
     void render(int row, int column, int layer);
 

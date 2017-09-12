@@ -91,7 +91,7 @@ const float CubeManager::vertices[] = {
     1.0f, 0.0f, 1.0f
 };
 
-void CubeManager::calculateNormals()
+void CubeManager::calculateNormals(float *normals)
 {
     float sum;
     float v[6];
@@ -135,8 +135,9 @@ Cube * CubeManager::makeCube(int row, int column, int layer)
 CubeManager::CubeManager(int width, int height, int depth)
     :width(width), height(height), depth(depth)
 {
+    float normals[12 * 3 * 3];
 
-    calculateNormals();
+    calculateNormals(normals);
 
     normalsVBOID = 0;
     glGenBuffers(1, &normalsVBOID);
