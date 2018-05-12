@@ -7,9 +7,9 @@ class Board
 
     int mod;
 
-    char * board;
+    int * board;
 
-    char * get(int row, int column, int layer);
+    int * get(int row, int column, int layer);
 
 public:
     void clearBoard();
@@ -22,7 +22,7 @@ public:
 
     void align(int oldWidth, int oldHeight, int oldDepth);
 
-    char* getBoard();
+    int* getBoard();
 
     Board(int width, int height, int depth, int mod);
 

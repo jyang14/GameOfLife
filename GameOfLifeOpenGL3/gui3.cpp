@@ -23,6 +23,11 @@ int gui3::show(Game &game) const
         if (!window.setActive(true))
             return -1;
 
+        glEnable(GL_DEPTH_TEST);
+
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
         camera3 camera;
 
         event_hander3 event_handler(window, camera);
@@ -56,13 +61,12 @@ int gui3::show(Game &game) const
             event_handler.tick(ms, focus);
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            glEnable(GL_DEPTH_TEST);
 
             game_renderer.render(ms);
 
 
             window.display();
-            sf::sleep(sf::milliseconds(5));
+            sleep(sf::milliseconds(5));
         }
 
     }
@@ -100,7 +104,7 @@ int gui3::show_gui() const
 
     const auto error = game.setState(state_);
 
-    if(error)
+    if (error)
         game.randomState();
 
     return show(game);

@@ -144,16 +144,11 @@ int Game::compareCurrentState(const char * state)
     return 1;
 }
 
-void Game::for_each_alive(const std::function<void (int, int, int)>& f)
+const int* Game::get_current_board()
 {
-    Board &current_board = boards[gen % 2];
-
-    for (int row = 0; row < height; row++)
-        for (int column = 0; column < width; column++)
-            for (int layer = 0; layer < depth; layer++)
-                if (current_board.isOccupied(row, column, layer))
-                    f(row, column, layer);
+    return boards[gen % 2].getBoard();
 }
+
 
 int Game::get_height() const
 {

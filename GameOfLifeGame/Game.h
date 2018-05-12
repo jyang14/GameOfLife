@@ -1,6 +1,5 @@
 #pragma once
 #include "Board.h"
-#include <glm/detail/type_vec3.hpp>
 #include <functional>
 
 class Game
@@ -30,7 +29,7 @@ public:
 
     int compareCurrentState(const char * state);
 
-    void for_each_alive(const std::function<void (int, int, int)>& f);
+    const int * get_current_board();
 
     Game(int width, int height, int depth, int mod, int liveMin, int liveMax, int birthMin, int birthMax);
 };

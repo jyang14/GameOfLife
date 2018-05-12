@@ -13,8 +13,10 @@ class game_render3
     int time_;
     int draw_delay_;
 
-    GLuint vbo_;
     GLuint vao_;
+    GLuint vbo_;
+    GLuint model_vbo_;
+    GLuint active_vbo_;
 
     sf::Shader cube_shader_;
     sf::Texture cube_texture_;
@@ -22,8 +24,6 @@ class game_render3
     Game &game_;
 
     camera3 &camera_;
-
-    glm::mat4 *models_;
 
 public:
 
