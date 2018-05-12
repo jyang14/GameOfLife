@@ -144,16 +144,38 @@ int Game::compareCurrentState(const char * state)
     return 1;
 }
 
+void Game::for_each_alive(const std::function<void (int, int, int)>& f)
+{
+    Board &current_board = boards[gen % 2];
 
-Game::Game(int width, int height, int depth,int mod, int liveMin, int liveMax, int birthMin, int birthMax)
-    : boards{ Board(width, height, depth, mod), Board(width, height, depth, mod) }, 
+    for (int row = 0; row < height; row++)
+        for (int column = 0; column < width; column++)
+            for (int layer = 0; layer < depth; layer++)
+                if (current_board.isOccupied(row, column, layer))
+                    f(row, column, layer);
+}
+
+int Game::get_height() const
+{
+    return height;
+}
+
+int Game::get_width() const
+{
+    return width;
+}
+
+int Game::get_depth() const
+{
+    return depth;
+}
+
+
+Game::Game(int width, int height, int depth, int mod, int liveMin, int liveMax, int birthMin, int birthMax)
+    : boards{ Board(width, height,depth,mod), Board(width, height, depth, mod) },
     width(width), height(height), depth(depth),
-    liveMin(liveMin),  liveMax(liveMax),
+    liveMin(liveMin), liveMax(liveMax),
     birthMin(birthMin), birthMax(birthMax)
 {
     gen = 0;
-}
-
-Game::~Game()
-{
 }

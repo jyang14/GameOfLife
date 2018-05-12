@@ -1,21 +1,21 @@
 #include <GL/glew.h>
-#include "Gui.h"
+#include "gui.h"
 #include "EventHandler.h"
 #include "GuiRender.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
 
-Gui::Gui(int width, int height, int depth, 
+gui::gui(int width, int height, int depth, 
     const char * state, int mod, 
     int liveMin, int liveMax, 
     int birthMin, int birthMax,
     int drawDelay, const char * title, const char * texturePath) 
-    : window(sf::RenderWindow(sf::VideoMode().getDesktopMode(), title,
+    : window_(sf::RenderWindow(sf::VideoMode().getDesktopMode(), title,
         sf::Style::Fullscreen, 
         sf::ContextSettings(24, 8, 2, 3, 3)))
 {
-    window.setVerticalSyncEnabled(true);
+    window_.setVerticalSyncEnabled(true);
     GLenum err = glewInit();
     if (GLEW_OK == err)
     {
@@ -28,7 +28,7 @@ Gui::Gui(int width, int height, int depth,
         // mipmapping is purely optional in this example
         texture.generateMipmap();
 
-        window.setActive(true);
+        window_.setActive(true);
 
         GameRender game(width, height, depth, mod, liveMin, liveMax, birthMin, birthMax);
         int error = game.setState(state);
@@ -39,7 +39,7 @@ Gui::Gui(int width, int height, int depth,
         }
         Camera camera;
 
-        EventHandler eventHandler(window, camera, game);
+        EventHandler eventHandler(window_, camera, game);
 
         GuiRender render(camera, game, drawDelay);
 
@@ -50,17 +50,17 @@ Gui::Gui(int width, int height, int depth,
         sf::Clock clock;
         clock.restart();
         int ms;
-        while (window.isOpen())
+        while (window_.isOpen())
         {
             sf::Event event;
-            while (window.pollEvent(event));
+            while (window_.pollEvent(event));
 
             ms = clock.getElapsedTime().asMilliseconds();
             clock.restart();
             eventHandler.tick(ms);
             render.render(ms);
 
-            window.display();
+            window_.display();
             sf::sleep(sf::milliseconds(5));
         }
     }
@@ -70,77 +70,77 @@ Gui::Gui(int width, int height, int depth,
     }
 }
 
-Gui::~Gui()
+gui::~gui()
 {
 }
 
-Gui::Builder::Builder()
+gui::builder::builder()
 {
-    width = 3;
-    height = 3;
-    depth = 3;
+    width_ = 3;
+    height_ = 3;
+    depth_ = 3;
 
-    state = "r";
-    title = "Conway's Game of Life";
-    texturePath = "C:/Users/jinch/Desktop/Untitled.png";
+    state_ = "r";
+    title_ = "Conway's Game of Life";
+    texture_path_ = "C:/Users/jinch/Desktop/Untitled.png";
 
-    liveMin = 2;
-    liveMax = 3;
+    live_min_ = 2;
+    live_max_ = 3;
 
-    birthMin = 3;
-    birthMax = 3;
+    birth_min_ = 3;
+    birth_max_ = 3;
 
-    drawDelay = 100;
+    draw_delay_ = 100;
 
-    mod = 0;
+    modular_board_ = 0;
 
 }
 
-void Gui::Builder::initGui()
+void gui::builder::init_gui()
 {
-    Gui gui(width, height, depth, state, mod, liveMin, liveMax, birthMin, birthMax, drawDelay, title, texturePath);
+    gui gui(width_, height_, depth_, state_, modular_board_, live_min_, live_max_, birth_min_, birth_max_, draw_delay_, title_, texture_path_);
 }
 
-void Gui::Builder::setDimensions(int newWidth, int newHeight, int newDepth)
+void gui::builder::set_dimensions(int newWidth, int newHeight, int newDepth)
 {
-    width = newWidth;
-    height = newHeight;
-    depth = newDepth;
+    width_ = newWidth;
+    height_ = newHeight;
+    depth_ = newDepth;
 }
 
-void Gui::Builder::setInitalState(const char * newState)
+void gui::builder::set_inital_state(const char * newState)
 {
-    state = newState;
+    state_ = newState;
 }
 
-void Gui::Builder::setTitle(const char * newTitle)
+void gui::builder::set_title(const char * newTitle)
 {
-    title = newTitle;
+    title_ = newTitle;
 }
 
-void Gui::Builder::setLiveRule(int newLiveMin, int newLiveMax)
+void gui::builder::set_live_rule(int newLiveMin, int newLiveMax)
 {
-    liveMin = newLiveMin;
-    liveMax = newLiveMax;
+    live_min_ = newLiveMin;
+    live_max_ = newLiveMax;
 }
 
-void Gui::Builder::setBirthRule(int newBirthMin, int newBirthMax)
+void gui::builder::set_birth_rule(int newBirthMin, int newBirthMax)
 {
-    birthMin = newBirthMin;
-    birthMax = newBirthMax;
+    birth_min_ = newBirthMin;
+    birth_max_ = newBirthMax;
 }
 
-void Gui::Builder::setDrawDelay(int newDrawDelay)
+void gui::builder::set_draw_delay(int newDrawDelay)
 {
-    drawDelay = newDrawDelay;
+    draw_delay_ = newDrawDelay;
 }
 
-void Gui::Builder::setModularBoard(int newMod)
+void gui::builder::set_modular_board(int newMod)
 {
-    mod = newMod;
+    modular_board_ = newMod;
 }
 
-void Gui::Builder::setTexture(const char * newTexturePath)
+void gui::builder::set_texture(const char * newTexturePath)
 {
-    texturePath = newTexturePath;
+    texture_path_ = newTexturePath;
 }

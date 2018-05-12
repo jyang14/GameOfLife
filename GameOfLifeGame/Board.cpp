@@ -18,16 +18,16 @@ int Board::isOccupied(int row, int column, int layer)
     if (row < 0 || row >= height ||
         column < 0 || column >= width ||
         layer < 0 || layer >= depth)
+    {
         if (!mod)
             return 0;
-        else return *get((row + height) % height, (column + width) % width, (layer + depth) % depth);
+        return *get((row + height) % height, (column + width) % width, (layer + depth) % depth);
+    }
 
 
-
-
-        // Note: occupied cells have a value of 1
-        // Unoccupied cells have a value of 0
-        return *get(row, column, layer);
+    // Note: occupied cells have a value of 1
+    // Unoccupied cells have a value of 0
+    return *get(row, column, layer);
 }
 
 

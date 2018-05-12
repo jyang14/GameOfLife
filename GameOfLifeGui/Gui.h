@@ -3,54 +3,54 @@ namespace sf
 {
     class RenderWindow;
 }
-class Gui
+class gui
 {
 private:
-    sf::RenderWindow& window;
+    sf::RenderWindow& window_;
 public:
-    class Builder
+    class builder
     {
-        int width;
-        int height;
-        int depth;
+        int width_;
+        int height_;
+        int depth_;
 
-        const char* state;
-        const char* title;
-        const char* texturePath;
+        const char* state_;
+        const char* title_;
+        const char* texture_path_;
 
-        int liveMin;
-        int liveMax;
+        int live_min_;
+        int live_max_;
 
-        int birthMin;
-        int birthMax;
+        int birth_min_;
+        int birth_max_;
 
-        int mod;
+        int modular_board_;
 
-        int drawDelay;
+        int draw_delay_;
 
     public:
 
-        Builder();
+        builder();
 
-        void initGui();
+        void init_gui();
 
-        void setDimensions(int newWidth, int newHeight, int newDepth);
-        void setInitalState(const char* newState);
-        void setTitle(const char* newTitle);
-        void setLiveRule(int newLiveMin, int newLiveMax);
-        void setBirthRule(int newBirthMin, int newBirthMax);
-        void setDrawDelay(int newDrawDelay);
-        void setModularBoard(int newMod);
-        void setTexture(const char *  newTexturePath);
+        void set_dimensions(int newWidth, int newHeight, int newDepth);
+        void set_inital_state(const char* newState);
+        void set_title(const char* newTitle);
+        void set_live_rule(int newLiveMin, int newLiveMax);
+        void set_birth_rule(int newBirthMin, int newBirthMax);
+        void set_draw_delay(int newDrawDelay);
+        void set_modular_board(int newMod);
+        void set_texture(const char *  newTexturePath);
 
     };
 
 
-    Gui(int width, int height, int depth,
+    gui(int width, int height, int depth,
         const char* state, int mod,
         int liveMin, int liveMax,
         int birthMin, int birthMax,
         int drawDelay, const char* title, const char* texture);
-    ~Gui();
+    ~gui();
 };
 

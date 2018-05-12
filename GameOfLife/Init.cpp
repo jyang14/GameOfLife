@@ -1,16 +1,16 @@
-#include <Gui.h>
+#include <gui.h>
 #include <cstdlib>
 
 int main()
 {
-    Gui::Builder builder;
+    gui::builder builder;
 
-    builder.setDimensions(30, 30, 30);
+    builder.set_dimensions(100, 100, 100);
 
-    builder.setLiveRule(2, 3);
-    builder.setBirthRule(4, 5);
+    builder.set_live_rule(2, 3);
+    builder.set_birth_rule(4, 5);
 
-    builder.setModularBoard(0);
+    builder.set_modular_board(0);
 
     // builder.setInitalState("ox\toox\txxx\nox\toox\txxx"); // glider 5766
     // builder.setInitalState("xx\txx\txx"); //oscilator 5766
@@ -34,11 +34,11 @@ int main()
     //    "ooxxoooooxx\n"
     //); // blinker 2333 2d
 
-    builder.setTexture("mams.jpeg");
+    builder.set_texture("mams.jpeg");
 
-    builder.setDrawDelay(100);
+    builder.set_draw_delay(100);
 
-    builder.initGui();
+    builder.init_gui();
 
 
 #if _DEBUG
